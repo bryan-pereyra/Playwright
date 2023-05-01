@@ -83,6 +83,12 @@ test.only('Child windows handling', async ({ browser }) => {
         await documentsLink.click()
     ])
 
-    text = await newPage.locator(".red").textContent();
-    console.log(text);
+    const text = await newPage.locator(".red").textContent();
+    const arrayText = text.split("@");
+    const domain = arrayText[1].split(" ")[0];
+    console.log(domain);
+
+    await page.locator("#username").type(domain);
+    await page.pause();
+    console.log(await page.locator("#username").textContent());
 });

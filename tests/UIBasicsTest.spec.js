@@ -43,10 +43,9 @@ test('First Playwright Test', async ({ page }) => {
     console.log(allTitles);
 });
 
-test.only('UI Controls', async ({ page }) => {
+test('UI Controls', async ({ page }) => {
     const userNameField = page.locator("#username");
     const passwordField = page.locator("[type='password']");
-    const signInBtn = page.locator("#signInBtn");
     const dropdown = page.locator("select.form-control");
     const userRadioBtn = page.locator(".radiotextsty").nth(1);
     const termsCheckbox = page.locator("#terms");
@@ -68,7 +67,22 @@ test.only('UI Controls', async ({ page }) => {
     expect(await termsCheckbox.isChecked()).toBeFalsy();
 
     await expect(documentsLink).toHaveAttribute('class', 'blinkingText');
+});
 
-    // await signInBtn.click();
-    // await page.pause();
+test.only('Child windows handling', async ({ browser }) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    const documentsLink = page.locator("[href*='documents-request']");
+
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+
+    await expect(documentsLink).toHaveAttribute('class', 'blinkingText');
+
+    const [newPage] = await Promise.all([
+        context.waitForEvent('page'),
+        await documentsLink.click()
+    ])
+
+    text = await newPage.locator(".red").textContent();
+    console.log(text);
 });

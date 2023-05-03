@@ -69,7 +69,7 @@ test('UI Controls', async ({ page }) => {
     await expect(documentsLink).toHaveAttribute('class', 'blinkingText');
 });
 
-test.only('Child windows handling', async ({ browser }) => {
+test('Child windows handling', async ({ browser }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     const documentsLink = page.locator("[href*='documents-request']");

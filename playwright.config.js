@@ -13,5 +13,7 @@ module.exports = defineConfig({
     browserName: 'chromium',
     headless: false,
     trace: 'on-first-retry',
+    screenshot: 'on',
+    trace: 'retain-on-failure'
   },
 });

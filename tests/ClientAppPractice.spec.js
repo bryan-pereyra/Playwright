@@ -1,12 +1,13 @@
 const { test, expect } = require('@playwright/test');
 
 test.only('Client App Practice', async ({ page }) => {
+    const email = "play.wright@mailinator.com";
     const products = page.locator(".card-body");
     const productName = 'adidas original';
 
     await page.goto("https://rahulshettyacademy.com/client/");
 
-    await page.locator("#userEmail").fill("play.wright@mailinator.com");
+    await page.locator("#userEmail").fill(email);
     await page.locator("#userPassword").type("Mypass@123");
     await page.locator("#login").click();
 
@@ -46,5 +47,26 @@ test.only('Client App Practice', async ({ page }) => {
         }
     }
 
+    /* Store values and add assertions*/
+    await expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
+    await page.locator(".action__submit").click();
+    await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+    const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+    console.log(orderId);
+
+    /* Dynamically find an element (Table) */
+    await page.locator("[routerlink*='myorders']").first().click();
+    await page.locator("tbody").waitFor();
+    
+    const rows = page.locator("tbody tr");
+    for (let i = 0; i < rows.count(); i++) {
+        const orderIdRow = await rows.nth(i).locator("th").textContent();
+        if (orderId.includes(orderIdRow)) {
+            await rows.nth(i).locator("button").first().click();
+            break;
+        }
+    }
+    const orderIdDetails =  await page.locator(".col-text").textContent();
+    expect(orderId.includes(orderIdDetails)).toBeTruthy();
     await page.pause();
 });

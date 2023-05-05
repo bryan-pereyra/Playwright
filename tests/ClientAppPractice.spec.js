@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test.only('Client App Practice', async ({ page }) => {
+test('Client App Practice', async ({ page }) => {
     const email = "play.wright@mailinator.com";
     const products = page.locator(".card-body");
     const productName = 'adidas original';
@@ -59,7 +59,7 @@ test.only('Client App Practice', async ({ page }) => {
     await page.locator("tbody").waitFor();
     
     const rows = page.locator("tbody tr");
-    for (let i = 0; i < rows.count(); i++) {
+    for (let i = 0; i < await rows.count(); i++) {
         const orderIdRow = await rows.nth(i).locator("th").textContent();
         if (orderId.includes(orderIdRow)) {
             await rows.nth(i).locator("button").first().click();

@@ -20,5 +20,4 @@ test.only("PopUp Validations", async ({ page }) => {
     await framesPage.locator("li a[href*='lifetime-access']:visible").click();
     const textCheck = await framesPage.locator(".text h2").textContent();
     console.log(textCheck.split(" ")[1]);
-
 })

@@ -3,3 +3,6 @@ node_modules/
 /playwright-report/
 /playwright/.cache/
 state.json
+screenshot.png
+partialScreenshot.png
+tests/MoreValidations.spec.js-snapshots/landing-win32.png

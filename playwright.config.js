@@ -14,6 +14,6 @@ module.exports = defineConfig({
     headless: false,
     trace: 'on-first-retry',
     screenshot: 'on',
-    trace: 'retain-on-failure'
+    trace: 'on'
   },
 });

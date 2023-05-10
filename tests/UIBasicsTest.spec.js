@@ -89,6 +89,5 @@ test('Child windows handling', async ({ browser }) => {
     console.log(domain);
 
     await page.locator("#username").type(domain);
-    await page.pause();
     console.log(await page.locator("#username").textContent());
 });

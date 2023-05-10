@@ -68,5 +68,4 @@ test('Client App Practice', async ({ page }) => {
     }
     const orderIdDetails =  await page.locator(".col-text").textContent();
     expect(orderId.includes(orderIdDetails)).toBeTruthy();
-    await page.pause();
 });

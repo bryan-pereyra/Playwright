@@ -4,6 +4,8 @@ class DashboardPage {
         this.products = page.locator(".card-body");
         this.titles = page.locator(".card-body b");
         this.cartButton = page.locator("[routerlink*='cart']");
+        this.ordersButton = page.locator("[routerlink*='myorders']").first();
+        this.body = page.locator("tbody");
     };
 
     async searchProductAndAddToCart(productName) {
@@ -16,12 +18,17 @@ class DashboardPage {
             if (await this.products.nth(i).locator("b").textContent() === productName) {
                 await this.products.nth(i).locator("text= Add To Cart").click();
                 break;
-            }
-        }
-    }
+            };
+        };
+    };
 
     async navigateToCart(){
         await this.cartButton.click();
+    };
+
+    async navigateToOrders(){
+        await this.ordersButton.click();
+        await this.body.waitFor();
     }
 };
 

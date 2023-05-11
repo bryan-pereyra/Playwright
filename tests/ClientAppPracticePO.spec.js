@@ -1,35 +1,23 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../pageobjects/LoginPage');
+const { DashboardPage } = require('../pageobjects/DashboardPage');
 
 test('Page Object Client App Practice', async ({ page }) => {
     const userName = "play.wright@mailinator.com";
     const password = "Mypass@123";
-    const products = page.locator(".card-body");
     const productName = 'adidas original';
 
     // PO Implementation
     const loginPage = new LoginPage(page);
+    const dashboardPage = new DashboardPage(page);
 
-    loginPage.goTo();
-    loginPage.validLogin(userName, password);
+    await loginPage.goTo();
+    await loginPage.validLogin(userName, password);
 
-    await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(3500);
-
-    const titles = await page.locator(".card-body b").allTextContents();
-    console.log(titles);
-
-    /* Dynamically find a product (For loop) */
-    const count = await products.count();
-    for (let i = 0; i < count; i++) {
-        if (await products.nth(i).locator("b").textContent() === productName) {
-            await products.nth(i).locator("text= Add To Cart").click();
-            break;
-        }
-    }
+    await dashboardPage.searchProductAndAddToCart(productName);
+    await dashboardPage.navigateToCart();
 
     /* Add Assertions */
-    await page.locator("[routerlink*='cart']").click();
     await page.locator("div li").first().waitFor();
     const bool = await page.locator("h3:has-text('adidas original')").isVisible();
     expect(bool).toBeTruthy();

@@ -15,6 +15,9 @@ class LoginPage {
         await this.userNameField.fill(userName);
         await this.passwordField.type(password);
         await this.signInButton.click();
+
+        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForTimeout(3500);
     }
 };
 

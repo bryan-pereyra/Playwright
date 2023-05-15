@@ -1,5 +1,12 @@
-{
-    "userName" : "play.wright@mailinator.com",
-    "password" : "Mypass@123",
-    "productName" : "adidas original"
-}
+[
+    {
+        "userName": "play.wright@mailinator.com",
+        "password": "Mypass@123",
+        "productName": "adidas original"
+    },
+    {
+        "userName": "play.wright@mailinator.com",
+        "password": "Mypass@123",
+        "productName": "iphone 13 pro"
+    }
+]

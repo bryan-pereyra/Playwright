@@ -1,10 +1,11 @@
 const { test, expect } = require('@playwright/test');
+const { customTest } = require("../utils/test-base")
 const { POManager } = require('../pageobjects/POManager');
 // JSON -> String -> JS Object
 const testData = JSON.parse(JSON.stringify(require("../utils/clientAppPOTestData.json")));
 
 for (const data of testData) {
-    test(`Page Object Client App Practice: ${data.productName}` , async ({ page }) => {
+    test(`Page Object Client App Practice: ${data.productName}`, async ({ page }) => {
 
         // PO Implementation
         const poManager = new POManager(page);
@@ -31,3 +32,20 @@ for (const data of testData) {
         expect(orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
     });
 };
+
+customTest('Page Object Client App Practice', async ({ page, testDataForPlaceOrder }) => {
+
+    const poManager = new POManager(page);
+    const loginPage = poManager.getLoginPage();
+    const dashboardPage = poManager.getDashboardPage();
+    const cartPage = poManager.getCartPage();
+
+    await loginPage.goTo();
+    await loginPage.validLogin(testDataForPlaceOrder.userName, testDataForPlaceOrder.password);
+
+    await dashboardPage.searchProductAndAddToCart(testDataForPlaceOrder.productName);
+    await dashboardPage.navigateToCart();
+
+    await cartPage.VerifyProductIsDisplayed(testDataForPlaceOrder.productName);
+    await cartPage.Checkout();
+});

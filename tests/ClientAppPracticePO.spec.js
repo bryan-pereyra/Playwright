@@ -1,10 +1,9 @@
 const { test, expect } = require('@playwright/test');
 const { POManager } = require('../pageobjects/POManager');
+// JSON -> String -> JS Object
+const testData = JSON.parse(JSON.stringify(require("../utils/clientAppPOTestData.json")));
 
 test('Page Object Client App Practice', async ({ page }) => {
-    const userName = "play.wright@mailinator.com";
-    const password = "Mypass@123";
-    const productName = 'adidas original';
 
     // PO Implementation
     const poManager = new POManager(page);
@@ -15,12 +14,12 @@ test('Page Object Client App Practice', async ({ page }) => {
     const ordersHistoryPage = poManager.getOrdersHistoryPage();
 
     await loginPage.goTo();
-    await loginPage.validLogin(userName, password);
+    await loginPage.validLogin(testData.userName, testData.password);
 
-    await dashboardPage.searchProductAndAddToCart(productName);
+    await dashboardPage.searchProductAndAddToCart(testData.productName);
     await dashboardPage.navigateToCart();
 
-    await cartPage.VerifyProductIsDisplayed(productName);
+    await cartPage.VerifyProductIsDisplayed(testData.productName);
     await cartPage.Checkout();
 
     await ordersReviewPage.searchCountryAndSelect("mex", "Mexico");

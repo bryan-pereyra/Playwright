@@ -2,6 +2,7 @@ const { defineConfig, devices } = require('@playwright/test');
 
 module.exports = defineConfig({
   testDir: './tests',
+  retries: 1, // Failed tests will execute n times
   timeout: 30 * 1000,
   expect: {
     timeout: 5000
@@ -26,7 +27,7 @@ module.exports = defineConfig({
         screenshot: 'on',
         trace: 'retain-on-failure',
         video: 'retain-on-failure',
-        viewport: { width: 720, height: 720 }, // Web responsive purposes
+        // viewport: { width: 720, height: 720 }, // Web responsive purposes
         ignoreHTTPSErrors: true // SSL Certification (No Https Web)
       },
     },

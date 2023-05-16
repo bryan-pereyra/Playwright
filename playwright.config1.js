@@ -14,7 +14,7 @@ module.exports = defineConfig({
         browserName: 'webkit',
         headless: false,
         screenshot: 'on',
-        trace: 'on',
+        trace: 'retain-on-failure',
         ...devices['iPhone 13'] // Mobile view
       },
     },
@@ -24,7 +24,8 @@ module.exports = defineConfig({
         browserName: 'chromium',
         headless: false,
         screenshot: 'on',
-        trace: 'on',
+        trace: 'retain-on-failure',
+        video: 'retain-on-failure',
         viewport: { width: 720, height: 720 }, // Web responsive purposes
         ignoreHTTPSErrors: true // SSL Certification (No Https Web)
       },
@@ -35,7 +36,7 @@ module.exports = defineConfig({
         browserName: 'firefox',
         headless: false,
         screenshot: 'on',
-        trace: 'on'
+        trace: 'retain-on-failure'
       },
     }
   ]

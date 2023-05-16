@@ -1,4 +1,4 @@
-const { defineConfig } = require('@playwright/test');
+const { defineConfig, devices } = require('@playwright/test');
 
 module.exports = defineConfig({
   testDir: './tests',
@@ -14,7 +14,8 @@ module.exports = defineConfig({
         browserName: 'webkit',
         headless: false,
         screenshot: 'on',
-        trace: 'on'
+        trace: 'on',
+        ...devices['iPhone 13'] // Mobile view
       },
     },
     {
@@ -23,7 +24,9 @@ module.exports = defineConfig({
         browserName: 'chromium',
         headless: false,
         screenshot: 'on',
-        trace: 'on'
+        trace: 'on',
+        viewport: { width: 720, height: 720 }, // Web responsive purposes
+        ignoreHTTPSErrors: true // SSL Certification (No Https Web)
       },
     },
     {

@@ -6,3 +6,4 @@ state.json
 screenshot.png
 partialScreenshot.png
 tests/MoreValidations.spec.js-snapshots/landing-win32.png
+state.json

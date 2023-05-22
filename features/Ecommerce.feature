@@ -1,7 +1,7 @@
 Feature: Ecommerce validations
 
     Scenario: Placing order
-        Given a login  to E-commerce app with "username" and "password"
+        Given a login  to E-commerce app with "play.wright@mailinator.com" and "Mypass@123"
         When add "adidas original" to Cart
         Then verify "adidas original" is displayed in the Cart
         When enter valid details and place the order

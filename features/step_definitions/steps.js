@@ -1,14 +1,7 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const { POManager } = require('../../pageobjects/POManager');
 const { expect } = require('@playwright/test');
-const playwright = require('@playwright/test');
 
 Given('a login  to E-commerce app with {string} and {string}', { timeout: 100 * 1000 }, async function (username, password) {
-    const browser = await playwright.chromium.launch({ headless: false });
-    const context = await browser.newContext();
-    const page = await context.newPage();
-
-    this.poManager = new POManager(page);
     const loginPage = this.poManager.getLoginPage();
 
     await loginPage.goTo();
@@ -34,7 +27,6 @@ When('enter valid details and place the order', async function () {
 
     await ordersReviewPage.searchCountryAndSelect("mex", "Mexico");
     this.orderId = await ordersReviewPage.SubmitAndGetOrderId();
-    console.log(this.orderId);
 });
 
 Then('verify order is present in the Order History', { timeout: 100 * 1000 }, async function () {

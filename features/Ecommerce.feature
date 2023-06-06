@@ -1,5 +1,6 @@
 Feature: Ecommerce validations
 
+    @Regression
     Scenario: Placing order
         Given a login  to E-commerce app with "play.wright@mailinator.com" and "Mypass@123"
         When add "adidas original" to Cart

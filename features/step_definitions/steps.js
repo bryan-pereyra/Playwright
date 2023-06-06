@@ -36,3 +36,22 @@ Then('verify order is present in the Order History', { timeout: 100 * 1000 }, as
     await ordersHistoryPage.searchOrderAndSelect(this.orderId);
     expect(this.orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
 });
+
+Given('a login  to E-commerce2 app with {string} and {string}', async function (username, password) {
+    const userNameField = this.page.locator("#username");
+    const passwordField = this.page.locator("[type='password']");
+    const signInBtn = this.page.locator("#signInBtn");
+
+    await this.page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    console.log(await this.page.title());
+
+    await expect(this.page).toHaveTitle("LoginPage Practise | Rahul Shetty Academy");
+    await userNameField.type(username);
+    await passwordField.type(password);
+    await signInBtn.click();
+});
+
+Then('verify error message is displayed', async function () {
+    console.log(await this.page.locator("[style*='block']").textContent());
+    await expect(this.page.locator("[style*='block']")).toContainText('Incorrect username/password.');
+});

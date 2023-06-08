@@ -11,10 +11,6 @@ Before(async function () {
     this.poManager = new POManager(this.page);
 });
 
-BeforeStep(function () {
-    // This hook will be executed before each step in a scenario
-});
-
 AfterStep(async function ({ result }) {
     if (result.status === Status.FAILED) {
         await this.page.screenshot({ path: 'screenshotAfterStep.png' });
